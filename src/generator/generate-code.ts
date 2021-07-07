@@ -53,7 +53,7 @@ async function createServicesFromModels(
 
   const caseFn = getCaseFn(options.filenameCase);
 
-  const dtoSuffix = options.dtoSuffix || "Dto";
+  const classSuffix = options.classSuffix || "Dto";
   const classPrefix = options.classPrefix || "";
 
   for (const enumModel of enums) {
@@ -78,7 +78,7 @@ async function createServicesFromModels(
     project.createSourceFile(
       path.join(options.outputDirPath, outputFile),
       prettier.format(
-        createDtoTemplate({ model, dtoSuffix, classPrefix, caseFn }),
+        createDtoTemplate({ model, classSuffix, classPrefix, caseFn }),
         {
           parser: "typescript",
         }

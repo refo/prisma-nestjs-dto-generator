@@ -3,6 +3,6 @@ export interface GenerateCodeOptions {
   relativePrismaOutputPath: string;
   absolutePrismaOutputPath?: string;
   filenameCase?: "camel" | "snake" | "kebab";
-  dtoSuffix?: string;
+  classSuffix?: string;
   classPrefix?: string;
 }

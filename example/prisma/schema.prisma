@@ -6,7 +6,7 @@ generator dto {
   provider     = "prisma-nestjs-dto-generator"
   output       = "../../generated"
   filenameCase = "snakeCase"
-  dtoSuffix    = "Dto"
+  classSuffix  = "Dto"
   classPrefix  = "Generated"
 }
 

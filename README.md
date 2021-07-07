@@ -15,7 +15,7 @@ generator dto {
   provider     = "prisma-nestjs-dto-generator"
   output       = "../generated" /// relative output path
   filenameCase = "kebab" /// "kebab | "snake" | "camel" (default)
-  dtoSuffix    = "Dto" /// (default = "Dto")
+  classSuffix    = "Dto" /// (default = "Dto")
   classPrefix  = "Generated" /// (default = "")
 }
 ```
