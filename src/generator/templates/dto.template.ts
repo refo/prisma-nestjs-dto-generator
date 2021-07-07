@@ -49,13 +49,12 @@ export function createDtoTemplate({
   template += `export class ${classPrefix}${model.name}${dtoSuffix} {`;
 
   for (const field of model.fields) {
-    template += `${field.name}${field.isRequired ? "" : "?"}: ${
-      field.kind === "scalar"
-        ? mapScalarToTSType(field.type, false)
-        : field.kind === "enum"
+    template += `${field.name}${field.isRequired && !field.isList ? "" : "?"}: ${field.kind === "scalar"
+      ? mapScalarToTSType(field.type, false)
+      : field.kind === "enum"
         ? `${classPrefix}${field.type}`
         : `${classPrefix}${field.type}${dtoSuffix}`
-    }${field.isList ? "[]" : ""};`;
+      }${field.isList ? "[]" : ""};`;
   }
 
   template += "}";
