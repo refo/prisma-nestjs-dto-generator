@@ -5,4 +5,5 @@ export interface GenerateCodeOptions {
   filenameCase?: "camel" | "snake" | "kebab";
   classSuffix?: string;
   classPrefix?: string;
+  excludeRelations?: boolean;
 }

@@ -1,11 +1,13 @@
 import { DMMF as PrismaDMMF } from "@prisma/client/runtime";
 import { mapScalarToTSType } from "../helpers";
+import { GenerateCodeOptions } from "../options";
 
 interface CreateDtoTemplateOptions {
   model: PrismaDMMF.Model;
   classSuffix: string;
   classPrefix: string;
   caseFn: (input: string) => string;
+  options: GenerateCodeOptions,
 }
 
 export function createDtoTemplate({
@@ -13,6 +15,7 @@ export function createDtoTemplate({
   classSuffix,
   classPrefix,
   caseFn,
+  options,
 }: CreateDtoTemplateOptions) {
   let template = "";
 
@@ -32,10 +35,12 @@ export function createDtoTemplate({
     .map((field) => (field.kind === "enum" ? field.type : ""))
     .filter(Boolean);
 
-  for (const importField of new Set(dtos)) {
-    template += `import { ${classPrefix}${importField}${classSuffix} } from './${caseFn(
-      importField
-    )}.dto';`;
+  if (!options.excludeRelations) {
+    for (const importField of new Set(dtos)) {
+      template += `import { ${classPrefix}${importField}${classSuffix} } from './${caseFn(
+        importField
+      )}.dto';`;
+    }
   }
 
   for (const enumField of new Set(enums)) {
@@ -49,6 +54,8 @@ export function createDtoTemplate({
   template += `export class ${classPrefix}${model.name}${classSuffix} {`;
 
   for (const field of model.fields) {
+    if (field.kind === 'object' && options.excludeRelations) continue;
+
     template += `${field.name}${field.isRequired && !field.isList ? "" : "?"}: ${field.kind === "scalar"
       ? mapScalarToTSType(field.type, false)
       : field.kind === "enum"

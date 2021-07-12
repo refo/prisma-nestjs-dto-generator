@@ -78,7 +78,7 @@ async function createServicesFromModels(
     project.createSourceFile(
       path.join(options.outputDirPath, outputFile),
       prettier.format(
-        createDtoTemplate({ model, classSuffix, classPrefix, caseFn }),
+        createDtoTemplate({ model, classSuffix, classPrefix, caseFn, options }),
         {
           parser: "typescript",
         }
