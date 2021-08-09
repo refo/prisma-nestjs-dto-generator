@@ -21,9 +21,9 @@
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@prisma/client": "~2.22.0",
-    "prettier": "*",
-    "prisma": "~2.22.0"
+    "@prisma/client": "^2.27.0",
+    "prisma": "^2.27.0",
+    "prettier": "*"
   },
   "repository": {
     "type": "git",
